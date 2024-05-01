@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="backgroundcolor"> #b3b3b3</color>
+    <color name="buttoncolor">#00aaff</color>
+    <color name="textcolor">#b3e6ff</color>
+    <color name="footerbakcground">#737373</color>
+    <color name="facebook">#0165E1</color>
+    <color name="google">#DB4437</color>
+    <color name="cardback">#e6e6e6</color>
+    <color name="statusbarColor">#FF000000</color>
+
+</resources>
