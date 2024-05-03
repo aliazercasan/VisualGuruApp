@@ -15,16 +15,15 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/drawer_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
-            android:padding="10dp"
             app:icon="@drawable/baseline_arrow_back_24"
             app:iconSize="40dp"
-            app:iconTint="@color/buttoncolor" />
+            app:iconTint="@color/black" />
 
         <TextView
             android:id="@+id/textView16"
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Full name"
+                android:text="First Name"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -87,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
-                android:text="Your email"
+                android:text="Your username"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -132,7 +131,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="70dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/buttoncolor"
                 android:padding="10dp"
                 android:text="Update"
                 app:cornerRadius="10dp" />

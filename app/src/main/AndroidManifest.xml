@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Reviews"
+            android:exported="false" />
+        <activity
             android:name=".Fashion"
             android:exported="false" />
         <activity

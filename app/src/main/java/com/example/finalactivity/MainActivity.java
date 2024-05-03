@@ -82,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
                 final String hashedPassword = hashPassword(password);
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url = "http://192.168.1.5/VisualGuro/login.php";
+                String url = "http://192.168.1.8/VisualGuro/login.php";
+//                Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
+
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+
                         new Response.Listener<String>() {
+
                             @Override
                             public void onResponse(String response) {
 
@@ -105,28 +109,36 @@ public class MainActivity extends AppCompatActivity {
 
                                         } else {
                                             // If not match, display an error message
-                                            Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+
+                                            Toast.makeText(MainActivity.this, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+
                                         }
 
                                     }
 
                                 }catch (JSONException e){
+
                                     e.printStackTrace();
                                 }
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> paramV = new HashMap<>();
-                        paramV.put("username",username);
-                        paramV.put("password",hashedPassword); // Send hashed password
-                        return paramV;
-                    }
+                        },
+
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+        //                        Toast.makeText(MainActivity.this, stringRequest.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> paramV = new HashMap<>();
+                                paramV.put("username",username);
+                                paramV.put("password",hashedPassword); // Send hashed password
+                                return paramV;
+                            }
                 };
 
                 // Add the request to the RequestQueue.

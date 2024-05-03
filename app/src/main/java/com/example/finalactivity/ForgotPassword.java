@@ -54,7 +54,7 @@ public class ForgotPassword extends AppCompatActivity {
 
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url = "http://192.168.35.68/VisualGuro/update.php";
+                String url = "http://192.168.137.185/VisualGuro/update.php";
 
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

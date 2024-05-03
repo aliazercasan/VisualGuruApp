@@ -2,6 +2,7 @@ package com.example.finalactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,7 +27,7 @@ public class Wedding extends AppCompatActivity {
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> arrayAdapter;
-    Button button;
+    Button button, btn_back, btn_reviews; // Added initialization for btn_reviews
 
     // Assume you have access to the user ID here
     String userId = "your_user_id"; // Replace "your_user_id" with the actual user ID
@@ -36,53 +37,57 @@ public class Wedding extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wedding);
         button = findViewById(R.id.btn_wedding);
+        btn_back = findViewById(R.id.btn_back);
+        btn_reviews = findViewById(R.id.btn_reviews); // Initialize btn_reviews button
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, item);
         autoCompleteTextView.setAdapter(arrayAdapter);
 
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDashboard();
+            }
+        });
+        btn_reviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openReviews(); // Call openReviews() when btn_reviews is clicked
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the selected time
                 String selectedTime = autoCompleteTextView.getText().toString();
 
-                // Check if a time is selected
                 if (!selectedTime.isEmpty()) {
-                    // Make a request to save the selected time to the database
                     saveSelectedTime(selectedTime);
                 } else {
-                    // Show an error message if no time is selected
                     Toast.makeText(Wedding.this, "Please select a time", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    // Inside saveSelectedTime() method
     private void saveSelectedTime(String selectedTime) {
-        // Construct the URL for your server
-        String url = "http://192.168.1.5/VisualGuro/wedding.php";
+        String url = "http://192.168.1.8/VisualGuro/wedding.php";
 
-        // Use Volley to send a POST request to your server
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display a success message if the data is saved successfully
                         Toast.makeText(getApplicationContext(), "Time saved successfully!", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Display an error message if there is an error
                 Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
-                // Set parameters for your POST request
                 Map<String, String> params = new HashMap<>();
                 params.put("schedule", selectedTime);
                 params.put("userId", userId);
@@ -90,9 +95,16 @@ public class Wedding extends AppCompatActivity {
             }
         };
 
-        // Add the request to the RequestQueue
         queue.add(stringRequest);
     }
 
-}
+    public void openDashboard() {
+        Intent intent = new Intent(this, Dashboard.class);
+        startActivity(intent);
+    }
 
+    public void openReviews() {
+        Intent intent = new Intent(this, Reviews.class);
+        startActivity(intent);
+    }
+}

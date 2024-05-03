@@ -10,5 +10,5 @@
     <color name="google">#DB4437</color>
     <color name="cardback">#e6e6e6</color>
     <color name="statusbarColor">#FF000000</color>
-
+    <color name="footerColor">#404040</color>
 </resources>

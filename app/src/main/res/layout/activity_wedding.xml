@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Wedding"
-    android:background="@color/backgroundcolor">
+    android:background="@color/backgroundcolor"
+    tools:context=".Wedding">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/transparent"
+                app:icon="@drawable/baseline_arrow_back_24"
+                app:iconSize="40dp"
+                app:iconTint="@color/black" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Visual Guru"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -133,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:shadowColor="@color/black"
-                    android:text="Venue: Just Click It Studio"
+                    android:text="Venue: Visual Guru Studio"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -153,17 +184,36 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:justificationMode="inter_word"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Capture the timeless essence of your love story with our exquisite wedding portraits. Beyond mere photographs, these portraits immortalize the beauty, joy, and commitment of your special day, becoming cherished heirlooms for generations to come."
-                android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:justificationMode="inter_word"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Capture the timeless essence of your love story with our exquisite wedding portraits. Beyond mere photographs, these portraits immortalize the beauty, joy, and commitment of your special day, becoming cherished heirlooms for generations to come."
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btn_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:text="Reviews"
+                    android:textColor="@color/black"
+                    android:textSize="11dp" />
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"

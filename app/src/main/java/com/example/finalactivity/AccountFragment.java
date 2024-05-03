@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class AccountFragment extends Fragment {
 
-    private Button btn_Back, btn_update;
+    private Button btn_Back;
     private TextView fullname, email, contactNumber;
 
     public AccountFragment() {
@@ -41,19 +41,13 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Find views
+        // Initialize UI elements
         fullname = view.findViewById(R.id.fullname);
         email = view.findViewById(R.id.email);
         contactNumber = view.findViewById(R.id.phoneNumber);
 
-        // Sample user ID, replace this with the actual ID of the logged-in user
-        String userId = "1";
-
-        // Retrieve user data from server
-        retrieveUserDataFromServer(userId);
-
-        // This is for Button Back
-        btn_Back = view.findViewById(R.id.btn_back);
+        // Button Back
+        btn_Back = view.findViewById(R.id.drawer_layout);
         btn_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,18 +55,23 @@ public class AccountFragment extends Fragment {
                 requireActivity().onBackPressed();
             }
         });
+
         return view;
     }
 
-    public void openDashboard() {
-        Intent intent = new Intent(requireActivity(), Dashboard.class);
-        startActivity(intent);
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Load user data when the fragment resumes
+        loadUserData();
     }
 
-    private void retrieveUserDataFromServer(String userId) {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(requireContext());
-        String url = "http://192.168.1.5/VisualGuro/display.php";
+    private void loadUserData() {
+        // Clear previous user data
+        clearUserData();
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://192.168.1.8/VisualGuro/display.php";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -82,38 +81,42 @@ public class AccountFragment extends Fragment {
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             if (jsonArray.length() > 0) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(0); // Assuming only one record is returned
-                                String firstName = jsonObject.getString("firstname");
-                                String userEmail = jsonObject.getString("email");
-                                String userContactNumber = jsonObject.getString("contactNumber");
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                String full_name = jsonObject.getString("firstname");
+                                String user_name = jsonObject.getString("username");
+                                String contact_number = jsonObject.getString("contactNumber");
 
-                                // Update TextViews with retrieved data
-                                fullname.setText("Full Name: " + firstName);
-                                email.setText("Email: " + userEmail);
-                                contactNumber.setText("Contact Number: " + userContactNumber);
-                            } else {
-                                // No data found
-                                Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show();
+                                // Set retrieved data to TextViews
+                                fullname.setText(full_name);
+                                email.setText(user_name);
+                                contactNumber.setText(contact_number);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(getContext(), "Error parsing JSON", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("userId", userId); // Pass the user ID
-                return params;
-            }
-        };
+        });
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+
+    private void clearUserData() {
+        // Clear previous user data
+        fullname.setText("");
+        email.setText("");
+        contactNumber.setText("");
+    }
+
+    public void openDashboard() {
+        Intent intent = new Intent(requireActivity(), Dashboard.class);
+        startActivity(intent);
+    }
 }
+

@@ -65,7 +65,7 @@ public class Create extends AppCompatActivity {
 
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url = "http://192.168.137.182/VisualGuro/create.php";
+                String url = "http://192.168.1.8/VisualGuro/create.php";
 
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
